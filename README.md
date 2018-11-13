@@ -11,5 +11,3 @@ If you have Go installed:
 go get github.com/veith/simple-generator
 ```
 
-Otherwise, you can download the binary from the [releases](https://github.com/groob/exec-template/releases) page.
-
