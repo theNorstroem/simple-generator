@@ -3,6 +3,8 @@
 VERSION="$(git describe --tags --always --dirty)"
 NAME="simple-generator"
 
+go get ./...
+
 echo "Building $NAME version $VERSION"
 
 mkdir -p build
