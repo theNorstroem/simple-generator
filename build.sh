@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION="$(git describe --tags --always --dirty)"
-NAME="generate-from-template"
+NAME="simple-generator"
 
 echo "Building $NAME version $VERSION"
 

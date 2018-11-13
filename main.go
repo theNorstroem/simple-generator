@@ -20,7 +20,7 @@ func main() {
 		flagJSONShort     = flag.String("j", "", "shortcut for json")
 	)
 
-	flag.Parse()
+	flag.Parse() //https://flaviocopes.com/go-command-line-flags/
 
 	if len(*flagJSONShort) > 0 {
 		flagJSON = flagJSONShort
