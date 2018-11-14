@@ -21,7 +21,7 @@ func main() {
 	checkError(readError)
 
 	var templateData map[string]interface{}
-	parseError := yaml.Unmarshal([]byte(dataBytes), &templateData)
+	parseError := yaml.Unmarshal([]byte(dataBytes), &templateData) //reads yaml and json because json is just a subset of yaml
 	checkError(parseError)
 
 	basePath := filepath.Base(*flagTemplate)
