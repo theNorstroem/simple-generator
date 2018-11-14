@@ -1,9 +1,9 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"github.com/Masterminds/sprig"
+	"gopkg.in/yaml.v2"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -21,7 +21,7 @@ func main() {
 	checkError(readError)
 
 	var templateData map[string]interface{}
-	parseError := json.Unmarshal([]byte(dataBytes), &templateData)
+	parseError := yaml.Unmarshal([]byte(dataBytes), &templateData)
 	checkError(parseError)
 
 	basePath := filepath.Base(*flagTemplate)
