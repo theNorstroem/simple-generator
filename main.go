@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"github.com/Masterminds/sprig"
 	"html/template"
 	"io/ioutil"
@@ -13,6 +12,8 @@ import (
 )
 
 func main() {
+
+	// Flags https://flaviocopes.com/go-command-line-flags/
 	var (
 		flagTemplate      = flag.String("template", "", "Path to template")
 		flagTemplateShort = flag.String("t", "", "shortcut for template")
@@ -20,7 +21,7 @@ func main() {
 		flagJSONShort     = flag.String("j", "", "shortcut for json")
 	)
 
-	flag.Parse() //https://flaviocopes.com/go-command-line-flags/
+	flag.Parse()
 
 	if len(*flagJSONShort) > 0 {
 		flagJSON = flagJSONShort
@@ -29,22 +30,19 @@ func main() {
 		flagTemplate = flagTemplateShort
 	}
 
+	// open the file from flag flagJSON for reading
 	jsonFile, openFileError := os.Open(*flagJSON)
-	if openFileError != nil {
-		fmt.Println(openFileError)
-	}
+	logError(openFileError)
 
 	defer jsonFile.Close()
+
 	jsonStringArray, readError := ioutil.ReadAll(jsonFile)
-	if readError != nil {
-		fmt.Println(readError)
-	}
+	logError(readError)
 
-	var jsonData map[string]interface{} // Objekt aus dem json file
-
-	if parseError := json.Unmarshal([]byte(jsonStringArray), &jsonData); parseError != nil {
-		log.Fatal(parseError)
-	}
+	// Objekt aus dem json file
+	var jsonData map[string]interface{}
+	parseError := json.Unmarshal([]byte(jsonStringArray), &jsonData)
+	logError(parseError)
 
 	var (
 		templateError error
@@ -60,6 +58,12 @@ func main() {
 	}
 
 	if err := tmpl.ExecuteTemplate(os.Stdout, name, jsonData); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func logError(err error) {
+	if err != nil {
 		log.Fatal(err)
 	}
 }
