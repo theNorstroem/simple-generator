@@ -1,6 +1,7 @@
 # simple-generator
 
-golang default template engine (https://astaxie.gitbooks.io/build-web-application-with-golang/en/07.4.html) with template functions from http://masterminds.github.io/sprig/
+Very simple golang template engine (https://astaxie.gitbooks.io/build-web-application-with-golang/en/07.4.html) 
+with template functions from http://masterminds.github.io/sprig/
 
 Works with JSON as input data format **only**
 
@@ -16,19 +17,16 @@ go get github.com/veith/simple-generator
 
 ```
 
- simple-generator -j data.json -t template.xxx // renders to stdout
- simple-generator -j data.json -t template.xxx > target.file
+ simple-generator -d data.json -t template.xxx // renders to stdout
+ simple-generator -d data.json -t template.xxx > target.file
  
  simple-generator -h  // help 
  Usage of simple-generator:
-   -j string
-         shortcut for json
-   -json string
-         Path to JSON file
+   -d string
+          Path to data file which contains YAML or JSON
    -t string
-         shortcut for template
-   -template string
-         Path to template
+          Path to tpl file
+
 
 
 ```
