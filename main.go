@@ -12,57 +12,26 @@ import (
 )
 
 func main() {
-
-	// Flags https://flaviocopes.com/go-command-line-flags/
-	var (
-		flagTemplate      = flag.String("template", "", "Path to template")
-		flagTemplateShort = flag.String("t", "", "shortcut for template")
-		flagJSON          = flag.String("json", "", "Path to JSON file")
-		flagJSONShort     = flag.String("j", "", "shortcut for json")
-	)
-
+	// more on Flags https://flaviocopes.com/go-command-line-flags/
+	var flagTemplate = flag.String("t", "", "Path to tpl file")
+	var flagDatafile = flag.String("d", "", "Path to data file which contains YAML or JSON")
 	flag.Parse()
 
-	if len(*flagJSONShort) > 0 {
-		flagJSON = flagJSONShort
-	}
-	if len(*flagTemplateShort) > 0 {
-		flagTemplate = flagTemplateShort
-	}
+	dataBytes, readError := ioutil.ReadFile(*flagDatafile)
+	checkError(readError)
 
-	// open the file from flag flagJSON for reading
-	jsonFile, openFileError := os.Open(*flagJSON)
-	logError(openFileError)
+	var templateData map[string]interface{}
+	parseError := json.Unmarshal([]byte(dataBytes), &templateData)
+	checkError(parseError)
 
-	defer jsonFile.Close()
+	basePath := filepath.Base(*flagTemplate)
+	tmpl, templateError := template.New(basePath).Funcs(sprig.FuncMap()).ParseFiles(*flagTemplate)
+	checkError(templateError)
 
-	jsonStringArray, readError := ioutil.ReadAll(jsonFile)
-	logError(readError)
-
-	// Objekt aus dem json file
-	var jsonData map[string]interface{}
-	parseError := json.Unmarshal([]byte(jsonStringArray), &jsonData)
-	logError(parseError)
-
-	var (
-		templateError error
-		tmpl          *template.Template
-		name          string
-	)
-
-	name = filepath.Base(*flagTemplate)
-	tmpl, templateError = template.New(name).Funcs(sprig.FuncMap()).ParseFiles(*flagTemplate)
-
-	if templateError != nil {
-		log.Fatal(templateError)
-	}
-
-	if err := tmpl.ExecuteTemplate(os.Stdout, name, jsonData); err != nil {
-		log.Fatal(err)
-	}
+	checkError(tmpl.ExecuteTemplate(os.Stdout, basePath, templateData))
 }
 
-func logError(err error) {
+func checkError(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
