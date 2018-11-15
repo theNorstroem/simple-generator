@@ -1,9 +1,17 @@
 # simple-generator
 
-Very simple golang template engine (https://astaxie.gitbooks.io/build-web-application-with-golang/en/07.4.html) 
-with template functions from http://masterminds.github.io/sprig/
+Very simple golang template engine for cli usage, using the golang template package and the template functions from [sprig](http://masterminds.github.io/sprig/). 
 
-Works with JSON or YMAL as input data format **only**
+Package template implements data-driven templates for generating textual output.
+
+Simple-generator works with JSON or YMAL as input data format **only** 
+
+## Dokumentation 
+ - [Build web application with Golang, 7.4 Templates](https://astaxie.gitbooks.io/build-web-application-with-golang/en/07.4.html)
+ - [**sprig**, Useful template functions for Go templates](http://masterminds.github.io/sprig/)
+
+
+
 
 # Install
 
@@ -30,3 +38,4 @@ go get github.com/veith/simple-generator
 
 
 ```
+
