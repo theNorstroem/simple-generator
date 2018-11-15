@@ -12,26 +12,24 @@ import (
 )
 
 func main() {
-	// more on Flags https://flaviocopes.com/go-command-line-flags/
 	var flagDatafilePath = flag.String("d", "", "Path to data file which contains YAML or JSON")
 	var flagTemplatePath = flag.String("t", "", "Path to tpl file")
-	flag.Parse()
+	flag.Parse() // more on Flags https://flaviocopes.com/go-command-line-flags/
 
 	dataBytes, readError := ioutil.ReadFile(*flagDatafilePath)
-	checkError(readError)
+	logIfErr(readError)
 
 	var templateData map[string]interface{}
 	parseError := yaml.Unmarshal([]byte(dataBytes), &templateData) //reads yaml and json because json is just a subset of yaml
-	checkError(parseError)
+	logIfErr(parseError)
 
-	basePath := filepath.Base(*flagTemplatePath)
-	tmpl, templateError := template.New(basePath).Funcs(sprig.FuncMap()).ParseFiles(*flagTemplatePath)
-	checkError(templateError)
+	tmpl, templateError := template.New(filepath.Base(*flagTemplatePath)).Funcs(sprig.FuncMap()).ParseFiles(*flagTemplatePath)
+	logIfErr(templateError)
 
-	checkError(tmpl.ExecuteTemplate(os.Stdout, basePath, templateData))
+	logIfErr(tmpl.Execute(os.Stdout, templateData))
 }
 
-func checkError(err error) {
+func logIfErr(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
