@@ -39,3 +39,12 @@ GO111MODULE=on go get -u github.com/veith/simple-generator@v1.0.0
 
 ```
 
+# Usage with stdin
+
+```
+ cat ./datafile.yaml | simple-generator -t ./templates/templatefile.tmpl > targetfile.proto
+
+ simple-generator -t ./templates/templatefile.tmpl > targetfile.proto < ./datafile.json
+ 
+```
+
