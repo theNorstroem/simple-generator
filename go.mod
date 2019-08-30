@@ -1,4 +1,4 @@
-module github.com/veith/simple-generator v0.1.2
+module github.com/veith/simple-generator
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
@@ -10,3 +10,5 @@ require (
 	golang.org/x/crypto v0.0.0-20190829043050-9756ffdc2472 // indirect
 	gopkg.in/yaml.v2 v2.2.2
 )
+
+go 1.11
