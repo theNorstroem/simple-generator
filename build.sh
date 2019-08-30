@@ -11,7 +11,7 @@ mkdir -p build
 
 build() {
   echo -n "=> $1-$2: "
-  GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build -o build/$NAME-$1-$2
+  GOOS=$1 GOARCH=$2 CGO_ENABLED=0 GO111MODULE=on go build -o build/$NAME-$1-$2
   du -h build/$NAME-$1-$2
 }
 
