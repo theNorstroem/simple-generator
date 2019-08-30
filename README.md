@@ -18,7 +18,7 @@ Simple-generator works with JSON or YMAL as input data format **only**
 If you have Go 1.12.x installed:
 
 ```
-GO111MODULE=on go get -u github.com/veith/simple-generator@v0.1.3
+GO111MODULE=on go get -u github.com/veith/simple-generator@v0.1.4
 ```
 
 # Usage
