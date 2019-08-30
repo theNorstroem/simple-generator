@@ -1,4 +1,4 @@
-module github.com/veith/simple-generator
+module github.com/veith/simple-generator v0.1.2
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
