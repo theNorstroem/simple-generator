@@ -14,18 +14,29 @@ import (
 func noescape(str string) template.HTML {
 	return template.HTML(str)
 }
+
+var stdin *os.File
+
 func main() {
 	var flagDatafilePath = flag.String("d", "", "Path to data file which contains YAML or JSON")
 	var flagTemplatePath = flag.String("t", "", "Path to tpl file")
 	flag.Parse() // more on Flags https://flaviocopes.com/go-command-line-flags/
 
-	dataBytes, readError := ioutil.ReadFile(*flagDatafilePath)
-	logIfErr(readError)
+	var dataBytes []byte
+	var readError error
+	if *flagDatafilePath != "" {
+		dataBytes, readError = ioutil.ReadFile(*flagDatafilePath)
+
+		logIfErr(readError)
+	} else {
+		dataBytes, readError = ioutil.ReadAll(os.Stdin)
+	}
 
 	fn := sprig.FuncMap()
 	fn["noescape"] = noescape
 
 	var templateData map[string]interface{}
+
 	parseError := yaml.Unmarshal([]byte(dataBytes), &templateData) //reads yaml and json because json is just a subset of yaml
 	logIfErr(parseError)
 
