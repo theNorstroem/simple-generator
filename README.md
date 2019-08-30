@@ -15,10 +15,10 @@ Simple-generator works with JSON or YMAL as input data format **only**
 
 # Install
 
-If you have Go installed:
+If you have Go 1.12.x installed:
 
 ```
-go get github.com/veith/simple-generator
+GO111MODULE=on go get -u github.com/veith/simple-generator@v0.1.3
 ```
 
 # Usage
