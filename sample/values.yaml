@@ -1,0 +1,13 @@
+#
+# Container Image
+#
+container:
+  image:
+    registry: "registry.company.io"
+  timezone: "Europe/Zurich"
+
+
+application:
+  id: "myApp"
+  # The proxy URL to the backend service.
+  backendService: "myBackend"

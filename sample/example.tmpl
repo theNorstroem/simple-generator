@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ApplicationConfig
+metadata:
+  name: {{ .application.id}}
+  labels:
+    app:  {{ .application.id}}
+spec:
+  env:
+    - name: TZ
+      value: "{{ .container.timezone }}"
+    - name: BACKEND_SERVICE
+      value: "{{ .application.backendService }}"
