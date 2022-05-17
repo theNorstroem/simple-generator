@@ -9,7 +9,7 @@ require (
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/stretchr/testify v1.6.0 // indirect
 	golang.org/x/crypto v0.0.0-20190829043050-9756ffdc2472 // indirect
-	gopkg.in/yaml.v2 v2.2.2
+	gopkg.in/yaml.v2 v2.2.8
 )
 
 go 1.17
